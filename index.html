@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apoie o PedroDev2026</title>
+
+<style>
+:root{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --card-hover:#273449;
+    --accent:#38bdf8;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --success:#22c55e;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#020617,#0f172a);
+    color:var(--text);
+    min-height:100vh;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:var(--muted);
+    font-size:1.1rem;
+    max-width:650px;
+    margin:auto;
+}
+
+.cards{
+    display:grid;
+    gap:20px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:24px;
+    transition:.3s;
+}
+
+.card:hover{
+    background:var(--card-hover);
+    transform:translateY(-3px);
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.icon{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.3rem;
+    background:rgba(56,189,248,.15);
+}
+
+.card h2{
+    font-size:1.3rem;
+}
+
+.address{
+    background:#0b1220;
+    border-radius:10px;
+    padding:12px;
+    margin:15px 0;
+    word-break:break-all;
+    font-family:monospace;
+    color:#cbd5e1;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.copy-btn{
+    background:var(--accent);
+    color:#000;
+}
+
+.copy-btn:hover{
+    opacity:.9;
+}
+
+.status{
+    margin-top:10px;
+    color:var(--success);
+    font-size:.9rem;
+}
+
+footer{
+    text-align:center;
+    margin-top:50px;
+    color:var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <section class="hero">
+        <h1>💙 Apoie o PedroDev2026</h1>
+        <p>
+            Se você gosta dos projetos, ferramentas, bibliotecas e conteúdos
+            desenvolvidos por PedroDev2026, considere fazer uma contribuição.
+            Sua ajuda permite manter os projetos ativos e evoluindo.
+        </p>
+    </section>
+
+    <section class="cards" id="supportCards"></section>
+
+    <footer>
+        © 2026 PedroDev2026 • Obrigado pelo apoio 🚀
+    </footer>
+
+</div>
+
+<script>
+// Adicione novos métodos aqui
+const supportMethods = [
+{
+    name: "Monero (XMR)",
+    icon: "🟠",
+    address: "489bK2joTv6atBXUJzdR5vgWqsksVoN5r2W1X1SZHCwBYzJuVDEBm51SC1VQkSc6h9g4uSjW1ofUCFZYfCQCEoLh7s5vSuw"
+},
+{
+    name: "Bitcoin Lightning",
+    icon: "⚡",
+    address: "heroicdog35@walletofsatoshi.com"
+}
+];
+
+const container = document.getElementById("supportCards");
+
+supportMethods.forEach((method, index) => {
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+        <div class="card-header">
+            <div class="icon">${method.icon}</div>
+            <h2>${method.name}</h2>
+        </div>
+
+        <div class="address" id="addr-${index}">
+            ${method.address}
+        </div>
+
+        <div class="actions">
+            <button class="copy-btn"
+                onclick="copyAddress('${index}')">
+                Copiar endereço
+            </button>
+        </div>
+
+        <div class="status" id="status-${index}"></div>
+    `;
+
+    container.appendChild(card);
+});
+
+function copyAddress(id){
+    const address =
+        document.getElementById(`addr-${id}`).innerText;
+
+    navigator.clipboard.writeText(address);
+
+    const status =
+        document.getElementById(`status-${id}`);
+
+    status.textContent = "✓ Copiado para a área de transferência";
+
+    setTimeout(() => {
+        status.textContent = "";
+    }, 3000);
+}
+</script>
+
+</body>
+</html>
